@@ -375,69 +375,88 @@ p.font.size = Pt(36)
 p.font.bold = True
 p.font.color.rgb = WHITE
 
-# Four service areas - 2x2 grid with clear plain-language descriptions
+# Five outcome-focused service areas
 services = [
     {
         "color": SKY,
-        "icon": "📊",
-        "title": "Data & Dashboards",
-        "subtitle": "See what's happening across your projects",
+        "icon": "👁️",
+        "title": "See Your Data Clearly",
+        "subtitle": "From scattered spreadsheets to a single source of truth",
         "points": [
-            "Connect scattered data into one clear view",
-            "Build visual dashboards that update automatically",
-            "Perform deep-dive analysis to spot trends",
-            "Support teams that don't have dedicated data staff"
+            "Dashboards that show project status at a glance",
+            "Maps and visuals that update automatically",
+            "One place to see what's happening across teams"
         ]
     },
     {
         "color": TEAL,
-        "icon": "🤖",
-        "title": "Custom AI Solutions",
-        "subtitle": "Smart tools built for your specific challenges",
+        "icon": "🔍",
+        "title": "Understand What's Happening",
+        "subtitle": "Turn raw data into answers",
         "points": [
-            "Predict outcomes (like permit timelines)",
-            "Automate repetitive data tasks",
-            "Build assistants that answer questions from your data",
-            "Create systems that learn and improve over time"
+            "Spot trends and patterns you'd otherwise miss",
+            "Find root causes when things slow down",
+            "Deep-dive analysis when you need to dig in"
         ]
     },
     {
         "color": SAGE,
-        "icon": "🔍",
-        "title": "AI Tools & Guidance",
-        "subtitle": "Navigate the AI landscape safely",
+        "icon": "🔮",
+        "title": "Predict What's Coming",
+        "subtitle": "See around corners before problems arrive",
         "points": [
-            "Help you use ChatGPT and similar tools wisely",
-            "Evaluate which AI products are worth buying",
-            "Connect with universities and research partners",
-            "Ensure AI is used responsibly and securely"
+            "Forecast timelines (like permit approvals)",
+            "Flag risks early so you can act",
+            "Model scenarios to plan ahead"
         ]
     },
     {
         "color": RgbColor(147, 112, 165),  # Purple
-        "icon": "🤝",
-        "title": "Company-Wide Collaboration",
-        "subtitle": "Connecting data expertise across teams",
+        "icon": "🤖",
+        "title": "Work Smarter with AI",
+        "subtitle": "Intelligent tools that multiply your capacity",
         "points": [
-            "Work alongside data professionals in every department",
-            "Share best practices so everyone benefits",
-            "Organize working groups to solve common challenges",
-            "Build tools that multiple teams can use"
+            "Generate reports and documents automatically",
+            "Ask questions and get instant answers from your data",
+            "Automate routine tasks so you can focus on judgment calls",
+            "Get smart alerts when something needs your attention"
+        ]
+    },
+    {
+        "color": RgbColor(205, 133, 63),  # Warm orange
+        "icon": "🧭",
+        "title": "Navigate AI Confidently",
+        "subtitle": "Make smart choices in a fast-moving landscape",
+        "points": [
+            "Guidance on using ChatGPT and similar tools safely",
+            "Evaluate which AI products are actually worth it",
+            "Stay ahead with university and industry connections"
         ]
     }
 ]
 
-card_width = Inches(6.066)
-card_height = Inches(2.7)
-start_x = Inches(0.6)
-start_y = Inches(1.55)
-gap = Inches(0.25)
+# Layout: 3 cards on top row, 2 centered on bottom row
+card_width = Inches(4.0)
+card_height = Inches(2.5)
+gap = Inches(0.2)
+
+# Top row: 3 cards
+top_start_x = Inches(0.5)
+top_y = Inches(1.5)
+
+# Bottom row: 2 cards, centered
+bottom_start_x = Inches(2.55)  # Centers two cards
+bottom_y = Inches(4.2)
 
 for i, svc in enumerate(services):
-    row = i // 2
-    col = i % 2
-    x = start_x + col * (card_width + gap)
-    y = start_y + row * (card_height + gap)
+    if i < 3:
+        # Top row
+        x = top_start_x + i * (card_width + gap)
+        y = top_y
+    else:
+        # Bottom row
+        x = bottom_start_x + (i - 3) * (card_width + gap)
+        y = bottom_y
 
     # Card background
     card = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, card_width, card_height)
