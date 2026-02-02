@@ -112,32 +112,25 @@ p.font.size = Pt(36)
 p.font.bold = True
 p.font.color.rgb = WHITE
 
-# Main metaphor section
-metaphor_box = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.6), Inches(1.7), Inches(12.133), Inches(1.8))
+# Main metaphor section - shortened
+metaphor_box = slide2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.6), Inches(1.7), Inches(12.133), Inches(1.4))
 metaphor_box.fill.solid()
 metaphor_box.fill.fore_color.rgb = RgbColor(240, 248, 255)
 metaphor_box.line.color.rgb = SKY
 metaphor_box.line.width = Pt(1.5)
 
-metaphor_text = slide2.shapes.add_textbox(Inches(0.9), Inches(1.85), Inches(11.5), Inches(1.6))
+metaphor_text = slide2.shapes.add_textbox(Inches(0.9), Inches(1.9), Inches(11.5), Inches(1.1))
 tf = metaphor_text.text_frame
 tf.word_wrap = True
 p = tf.paragraphs[0]
-p.text = "Think of us as technology specialists who speak your language."
-p.font.size = Pt(22)
-p.font.bold = True
-p.font.color.rgb = NAVY
-p.space_after = Pt(12)
-
-p2 = tf.add_paragraph()
-p2.text = "You know how Netflix somehow knows which shows you'll like? Or how your phone can identify a song in seconds? We're the people who build those kinds of systems — but for business problems. We create tools that find patterns in your data, predict what's coming next, and automate the tedious stuff so you can focus on what matters."
-p2.font.size = Pt(17)
-p2.font.color.rgb = SLATE
+p.text = "You know how Netflix figures out which shows you'll like, or how your phone identifies a song in seconds? We build those kinds of systems — but for your business problems."
+p.font.size = Pt(20)
+p.font.color.rgb = SLATE
 
 # Three key descriptors
 col_width = Inches(3.9)
 col_gap = Inches(0.25)
-col_y = Inches(3.8)
+col_y = Inches(3.4)
 
 descriptors = [
     (TEAL, "We Build Tools", "From simple dashboards to smart systems that learn and improve over time"),
@@ -180,7 +173,7 @@ for i, (color, title_text, desc) in enumerate(descriptors):
     p.font.color.rgb = SLATE
 
 # Bottom note
-note = slide2.shapes.add_textbox(Inches(0.6), Inches(6.2), Inches(12), Inches(0.6))
+note = slide2.shapes.add_textbox(Inches(0.6), Inches(5.8), Inches(12), Inches(0.6))
 tf = note.text_frame
 p = tf.paragraphs[0]
 p.text = "Computer science + data science backgrounds → Real-world solutions for your team"
@@ -334,6 +327,29 @@ for i, pt in enumerate(right_points):
     p.font.size = Pt(13)
     p.font.color.rgb = SLATE
 
+# "What We Need From You" callout - addresses unspoken concerns
+concern_box = slide3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.5), Inches(6.4), Inches(12.333), Inches(0.9))
+concern_box.fill.solid()
+concern_box.fill.fore_color.rgb = RgbColor(255, 250, 240)  # Warm cream
+concern_box.line.color.rgb = RgbColor(205, 133, 63)  # Warm accent
+concern_box.line.width = Pt(1.5)
+
+concern_title = slide3.shapes.add_textbox(Inches(0.8), Inches(6.5), Inches(3), Inches(0.4))
+tf = concern_title.text_frame
+p = tf.paragraphs[0]
+p.text = "What we need from you:"
+p.font.size = Pt(14)
+p.font.bold = True
+p.font.color.rgb = RgbColor(180, 100, 50)
+
+concern_text = slide3.shapes.add_textbox(Inches(3.8), Inches(6.5), Inches(8.8), Inches(0.7))
+tf = concern_text.text_frame
+tf.word_wrap = True
+p = tf.paragraphs[0]
+p.text = "A conversation or two to help us understand your work. That's it. We handle the technical building — you stay focused on your job."
+p.font.size = Pt(14)
+p.font.color.rgb = SLATE
+
 add_slide_footer(slide3)
 
 # ============================================
@@ -471,7 +487,7 @@ for i, svc in enumerate(services):
 add_slide_footer(slide4)
 
 # ============================================
-# SLIDE 5: Real Examples for Your Work
+# SLIDE 5: Types of Solutions We Build
 # ============================================
 slide5 = prs.slides.add_slide(prs.slide_layouts[6])
 
@@ -488,88 +504,142 @@ header5.line.fill.background()
 title5 = slide5.shapes.add_textbox(Inches(0.8), Inches(0.35), Inches(11.733), Inches(0.8))
 tf = title5.text_frame
 p = tf.paragraphs[0]
-p.text = "Examples: What This Looks Like in Practice"
+p.text = "Types of Solutions We Build"
 p.font.size = Pt(36)
 p.font.bold = True
 p.font.color.rgb = WHITE
 
-# Examples in a clean grid
-examples = [
-    ("📋", "Project Pipeline Dashboard",
-     "One screen showing every project's status from first landowner contact through permit approval — always up to date"),
-    ("🔮", "Permit Timeline Predictor",
-     "A tool that estimates realistic approval dates based on county, project size, and historical patterns"),
-    ("📄", "Automatic Report Generator",
-     "Feed in your project data, get a formatted status report or permit application draft — ready to review"),
-    ("🗺️", "Interactive Project Maps",
-     "Visual maps showing land status, permitting progress, and key metrics you can explore and filter"),
-    ("💬", "Project Data Assistant",
-     "Ask questions in plain English like \"Which projects in Texas are waiting on permits?\" and get instant answers"),
-    ("🔗", "Connected Data Systems",
-     "Link your spreadsheets, databases, and documents so information flows automatically — no more manual updates"),
+# Subtitle
+sub5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.5), Inches(11.5), Inches(0.5))
+tf = sub5.text_frame
+p = tf.paragraphs[0]
+p.text = "A spectrum of tools — from simple visibility to intelligent automation"
+p.font.size = Pt(16)
+p.font.color.rgb = MED_GRAY
+
+# Solution types - horizontal flow showing progression
+solution_types = [
+    {
+        "icon": "📊",
+        "title": "Dashboards &\nVisualizations",
+        "desc": "See your data clearly",
+        "examples": "Status trackers, maps, charts that update automatically",
+        "color": SKY
+    },
+    {
+        "icon": "🔗",
+        "title": "Connected\nData Systems",
+        "desc": "Bring scattered info together",
+        "examples": "Link spreadsheets, databases, and documents in one place",
+        "color": TEAL
+    },
+    {
+        "icon": "📈",
+        "title": "Analysis &\nInsights",
+        "desc": "Find patterns and trends",
+        "examples": "What's working? What's slowing down? Where to focus?",
+        "color": SAGE
+    },
+    {
+        "icon": "🔮",
+        "title": "Predictions &\nForecasts",
+        "desc": "See what's likely coming",
+        "examples": "Timeline estimates, risk flags, outcome probabilities",
+        "color": RgbColor(147, 112, 165)
+    },
+    {
+        "icon": "🤖",
+        "title": "AI-Powered\nTools",
+        "desc": "Smart automation",
+        "examples": "Document generation, Q&A assistants, intelligent workflows",
+        "color": RgbColor(205, 133, 63)
+    }
 ]
 
-card_w = Inches(4)
-card_h = Inches(1.75)
-start_x = Inches(0.55)
-start_y = Inches(1.5)
-gap_x = Inches(0.15)
-gap_y = Inches(0.15)
+card_width = Inches(2.35)
+card_height = Inches(4.2)
+start_x = Inches(0.5)
+start_y = Inches(2.1)
+gap = Inches(0.2)
 
-colors = [SKY, TEAL, SAGE, RgbColor(147, 112, 165), RgbColor(205, 133, 63), RgbColor(119, 136, 153)]
+for i, sol in enumerate(solution_types):
+    x = start_x + i * (card_width + gap)
 
-for i, (icon, title_text, desc) in enumerate(examples):
-    row = i // 3
-    col = i % 3
-    x = start_x + col * (card_w + gap_x)
-    y = start_y + row * (card_h + gap_y)
-
-    # Card
-    card = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, card_w, card_h)
+    # Card background
+    card = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, start_y, card_width, card_height)
     card.fill.solid()
-    card.fill.fore_color.rgb = LIGHT_GRAY
-    card.line.color.rgb = colors[i]
-    card.line.width = Pt(1.5)
+    card.fill.fore_color.rgb = WHITE
+    card.line.color.rgb = sol["color"]
+    card.line.width = Pt(2)
 
-    # Icon circle
-    circle = slide5.shapes.add_shape(MSO_SHAPE.OVAL, x + Inches(0.15), y + Inches(0.15), Inches(0.5), Inches(0.5))
-    circle.fill.solid()
-    circle.fill.fore_color.rgb = colors[i]
-    circle.line.fill.background()
+    # Color bar at top
+    bar = slide5.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, start_y, card_width, Inches(0.15))
+    bar.fill.solid()
+    bar.fill.fore_color.rgb = sol["color"]
+    bar.line.fill.background()
 
-    icon_txt = slide5.shapes.add_textbox(x + Inches(0.15), y + Inches(0.2), Inches(0.5), Inches(0.4))
+    # Icon
+    icon_bg = slide5.shapes.add_shape(MSO_SHAPE.OVAL, x + card_width/2 - Inches(0.4), start_y + Inches(0.35), Inches(0.8), Inches(0.8))
+    icon_bg.fill.solid()
+    icon_bg.fill.fore_color.rgb = sol["color"]
+    icon_bg.line.fill.background()
+
+    icon_txt = slide5.shapes.add_textbox(x + card_width/2 - Inches(0.35), start_y + Inches(0.45), Inches(0.7), Inches(0.6))
     tf = icon_txt.text_frame
     p = tf.paragraphs[0]
-    p.text = icon
-    p.font.size = Pt(20)
+    p.text = sol["icon"]
+    p.font.size = Pt(28)
     p.alignment = PP_ALIGN.CENTER
 
     # Title
-    t = slide5.shapes.add_textbox(x + Inches(0.75), y + Inches(0.2), card_w - Inches(0.9), Inches(0.45))
+    t = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(1.25), card_width - Inches(0.2), Inches(0.8))
     tf = t.text_frame
+    tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = title_text
+    p.text = sol["title"]
     p.font.size = Pt(14)
     p.font.bold = True
-    p.font.color.rgb = NAVY
+    p.font.color.rgb = sol["color"]
+    p.alignment = PP_ALIGN.CENTER
 
-    # Description
-    d = slide5.shapes.add_textbox(x + Inches(0.15), y + Inches(0.7), card_w - Inches(0.3), Inches(1))
+    # Short description
+    d = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(2.05), card_width - Inches(0.2), Inches(0.5))
     tf = d.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = desc
-    p.font.size = Pt(11)
+    p.text = sol["desc"]
+    p.font.size = Pt(13)
+    p.font.bold = True
     p.font.color.rgb = SLATE
+    p.alignment = PP_ALIGN.CENTER
+
+    # Examples
+    e = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(2.55), card_width - Inches(0.2), Inches(1.4))
+    tf = e.text_frame
+    tf.word_wrap = True
+    p = tf.paragraphs[0]
+    p.text = sol["examples"]
+    p.font.size = Pt(11)
+    p.font.color.rgb = MED_GRAY
+    p.alignment = PP_ALIGN.CENTER
+
+    # Arrow between cards (except last)
+    if i < len(solution_types) - 1:
+        arrow = slide5.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW,
+            x + card_width + Inches(0.02), start_y + Inches(0.8),
+            Inches(0.16), Inches(0.25))
+        arrow.fill.solid()
+        arrow.fill.fore_color.rgb = RgbColor(200, 210, 220)
+        arrow.line.fill.background()
 
 # Bottom note
-note5 = slide5.shapes.add_textbox(Inches(0.5), Inches(5.15), Inches(12.3), Inches(0.5))
+note5 = slide5.shapes.add_textbox(Inches(0.5), Inches(6.5), Inches(12.3), Inches(0.5))
 tf = note5.text_frame
 p = tf.paragraphs[0]
-p.text = "These are just examples — every solution is tailored to your specific needs"
-p.font.size = Pt(14)
-p.font.italic = True
-p.font.color.rgb = MED_GRAY
+p.text = "Let's look at some real examples →"
+p.font.size = Pt(16)
+p.font.bold = True
+p.font.color.rgb = TEAL
 p.alignment = PP_ALIGN.CENTER
 
 add_slide_footer(slide5)
