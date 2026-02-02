@@ -353,7 +353,7 @@ p.font.color.rgb = SLATE
 add_slide_footer(slide3)
 
 # ============================================
-# SLIDE 4: What We Offer - Data & Dashboards Focus
+# SLIDE 4: What We Build - Core Deliverables
 # ============================================
 slide4 = prs.slides.add_slide(prs.slide_layouts[6])
 
@@ -370,143 +370,160 @@ header4.line.fill.background()
 title4 = slide4.shapes.add_textbox(Inches(0.8), Inches(0.35), Inches(11.733), Inches(0.8))
 tf = title4.text_frame
 p = tf.paragraphs[0]
-p.text = "What We Offer"
+p.text = "What We Build"
 p.font.size = Pt(36)
 p.font.bold = True
 p.font.color.rgb = WHITE
 
-# Five outcome-focused service areas
-services = [
+# Subtitle
+sub4 = slide4.shapes.add_textbox(Inches(0.8), Inches(1.45), Inches(11.5), Inches(0.5))
+tf = sub4.text_frame
+p = tf.paragraphs[0]
+p.text = "When you work with us, here's what you can expect to get"
+p.font.size = Pt(16)
+p.font.color.rgb = MED_GRAY
+
+# Four core deliverables - horizontal flow showing progression
+deliverables = [
     {
-        "color": SKY,
         "icon": "👁️",
-        "title": "See Your Data Clearly",
-        "subtitle": "From scattered spreadsheets to a single source of truth",
+        "title": "Visibility",
+        "subtitle": "See your data clearly",
         "points": [
-            "Dashboards that show project status at a glance",
+            "Dashboards showing status at a glance",
             "Maps and visuals that update automatically",
-            "One place to see what's happening across teams"
-        ]
+            "One place to see across teams"
+        ],
+        "color": SKY
     },
     {
-        "color": TEAL,
         "icon": "🔍",
-        "title": "Understand What's Happening",
-        "subtitle": "Turn raw data into answers",
+        "title": "Understanding",
+        "subtitle": "Know what's really happening",
         "points": [
-            "Spot trends and patterns you'd otherwise miss",
+            "Spot trends you'd otherwise miss",
             "Find root causes when things slow down",
-            "Deep-dive analysis when you need to dig in"
-        ]
+            "Analysis that answers your questions"
+        ],
+        "color": TEAL
     },
     {
-        "color": SAGE,
         "icon": "🔮",
-        "title": "Predict What's Coming",
-        "subtitle": "See around corners before problems arrive",
+        "title": "Foresight",
+        "subtitle": "See what's coming",
         "points": [
-            "Forecast timelines (like permit approvals)",
-            "Flag risks early so you can act",
+            "Forecast timelines and outcomes",
+            "Flag risks before they become problems",
             "Model scenarios to plan ahead"
-        ]
+        ],
+        "color": SAGE
     },
     {
-        "color": RgbColor(147, 112, 165),  # Purple
         "icon": "🤖",
-        "title": "Work Smarter with AI",
-        "subtitle": "Intelligent tools that multiply your capacity",
+        "title": "Intelligent Tools",
+        "subtitle": "AI that works for you",
         "points": [
             "Generate reports and documents automatically",
-            "Ask questions and get instant answers from your data",
-            "Automate routine tasks so you can focus on judgment calls",
-            "Get smart alerts when something needs your attention"
-        ]
-    },
-    {
-        "color": RgbColor(205, 133, 63),  # Warm orange
-        "icon": "🧭",
-        "title": "Navigate AI Confidently",
-        "subtitle": "Make smart choices in a fast-moving landscape",
-        "points": [
-            "Guidance on using ChatGPT and similar tools safely",
-            "Evaluate which AI products are actually worth it",
-            "Stay ahead with university and industry connections"
-        ]
+            "Ask questions, get instant answers",
+            "Smart alerts when you need to act"
+        ],
+        "color": RgbColor(147, 112, 165)
     }
 ]
 
-# Layout: 3 cards on top row, 2 centered on bottom row
-card_width = Inches(4.0)
-card_height = Inches(2.5)
+# Layout: 4 cards in a row
+card_width = Inches(3.0)
+card_height = Inches(4.0)
+start_x = Inches(0.45)
+start_y = Inches(2.0)
 gap = Inches(0.2)
 
-# Top row: 3 cards
-top_start_x = Inches(0.5)
-top_y = Inches(1.5)
-
-# Bottom row: 2 cards, centered
-bottom_start_x = Inches(2.55)  # Centers two cards
-bottom_y = Inches(4.2)
-
-for i, svc in enumerate(services):
-    if i < 3:
-        # Top row
-        x = top_start_x + i * (card_width + gap)
-        y = top_y
-    else:
-        # Bottom row
-        x = bottom_start_x + (i - 3) * (card_width + gap)
-        y = bottom_y
+for i, item in enumerate(deliverables):
+    x = start_x + i * (card_width + gap)
 
     # Card background
-    card = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, card_width, card_height)
+    card = slide4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, start_y, card_width, card_height)
     card.fill.solid()
     card.fill.fore_color.rgb = WHITE
-    card.line.color.rgb = svc["color"]
+    card.line.color.rgb = item["color"]
     card.line.width = Pt(2)
 
-    # Color accent bar
-    bar = slide4.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, y, Inches(0.15), card_height)
+    # Color bar at top
+    bar = slide4.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, start_y, card_width, Inches(0.12))
     bar.fill.solid()
-    bar.fill.fore_color.rgb = svc["color"]
+    bar.fill.fore_color.rgb = item["color"]
     bar.line.fill.background()
 
-    # Icon and title
-    title_txt = slide4.shapes.add_textbox(x + Inches(0.35), y + Inches(0.15), card_width - Inches(0.5), Inches(0.5))
-    tf = title_txt.text_frame
+    # Icon circle
+    icon_bg = slide4.shapes.add_shape(MSO_SHAPE.OVAL, x + card_width/2 - Inches(0.4), start_y + Inches(0.3), Inches(0.8), Inches(0.8))
+    icon_bg.fill.solid()
+    icon_bg.fill.fore_color.rgb = item["color"]
+    icon_bg.line.fill.background()
+
+    icon_txt = slide4.shapes.add_textbox(x + card_width/2 - Inches(0.35), start_y + Inches(0.4), Inches(0.7), Inches(0.6))
+    tf = icon_txt.text_frame
     p = tf.paragraphs[0]
-    p.text = f"{svc['icon']}  {svc['title']}"
-    p.font.size = Pt(20)
+    p.text = item["icon"]
+    p.font.size = Pt(28)
+    p.alignment = PP_ALIGN.CENTER
+
+    # Title
+    t = slide4.shapes.add_textbox(x + Inches(0.1), start_y + Inches(1.2), card_width - Inches(0.2), Inches(0.5))
+    tf = t.text_frame
+    p = tf.paragraphs[0]
+    p.text = item["title"]
+    p.font.size = Pt(18)
     p.font.bold = True
-    p.font.color.rgb = svc["color"]
+    p.font.color.rgb = item["color"]
+    p.alignment = PP_ALIGN.CENTER
 
     # Subtitle
-    sub_txt = slide4.shapes.add_textbox(x + Inches(0.35), y + Inches(0.6), card_width - Inches(0.5), Inches(0.4))
-    tf = sub_txt.text_frame
+    s = slide4.shapes.add_textbox(x + Inches(0.1), start_y + Inches(1.65), card_width - Inches(0.2), Inches(0.4))
+    tf = s.text_frame
     p = tf.paragraphs[0]
-    p.text = svc["subtitle"]
-    p.font.size = Pt(13)
+    p.text = item["subtitle"]
+    p.font.size = Pt(12)
     p.font.italic = True
     p.font.color.rgb = MED_GRAY
+    p.alignment = PP_ALIGN.CENTER
 
     # Bullet points
-    bullets = slide4.shapes.add_textbox(x + Inches(0.35), y + Inches(1.05), card_width - Inches(0.5), Inches(1.5))
+    bullets = slide4.shapes.add_textbox(x + Inches(0.15), start_y + Inches(2.1), card_width - Inches(0.3), Inches(1.7))
     tf = bullets.text_frame
     tf.word_wrap = True
-    for j, pt in enumerate(svc["points"]):
+    for j, pt in enumerate(item["points"]):
         if j == 0:
             p = tf.paragraphs[0]
         else:
             p = tf.add_paragraph()
         p.text = "• " + pt
-        p.font.size = Pt(12)
+        p.font.size = Pt(11)
         p.font.color.rgb = SLATE
-        p.space_after = Pt(3)
+        p.space_after = Pt(4)
+
+    # Arrow between cards (except last)
+    if i < len(deliverables) - 1:
+        arrow = slide4.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW,
+            x + card_width + Inches(0.03), start_y + Inches(0.55),
+            Inches(0.14), Inches(0.22))
+        arrow.fill.solid()
+        arrow.fill.fore_color.rgb = RgbColor(200, 210, 220)
+        arrow.line.fill.background()
+
+# Bottom note
+note4 = slide4.shapes.add_textbox(Inches(0.5), Inches(6.2), Inches(12.3), Inches(0.5))
+tf = note4.text_frame
+p = tf.paragraphs[0]
+p.text = "Each solution is tailored to your specific needs — let's look at some examples →"
+p.font.size = Pt(14)
+p.font.italic = True
+p.font.color.rgb = MED_GRAY
+p.alignment = PP_ALIGN.CENTER
 
 add_slide_footer(slide4)
 
 # ============================================
-# SLIDE 5: Types of Solutions We Build
+# SLIDE 5: Beyond Project Work - Enablement
 # ============================================
 slide5 = prs.slides.add_slide(prs.slide_layouts[6])
 
@@ -523,142 +540,109 @@ header5.line.fill.background()
 title5 = slide5.shapes.add_textbox(Inches(0.8), Inches(0.35), Inches(11.733), Inches(0.8))
 tf = title5.text_frame
 p = tf.paragraphs[0]
-p.text = "Types of Solutions We Build"
+p.text = "Beyond Project Work"
 p.font.size = Pt(36)
 p.font.bold = True
 p.font.color.rgb = WHITE
 
 # Subtitle
-sub5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.5), Inches(11.5), Inches(0.5))
+sub5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.45), Inches(11.5), Inches(0.5))
 tf = sub5.text_frame
 p = tf.paragraphs[0]
-p.text = "A spectrum of tools — from simple visibility to intelligent automation"
+p.text = "How we support the broader organization"
 p.font.size = Pt(16)
 p.font.color.rgb = MED_GRAY
 
-# Solution types - horizontal flow showing progression
-solution_types = [
+# Enablement services - 2 rows
+enablement = [
     {
-        "icon": "📊",
-        "title": "Dashboards &\nVisualizations",
-        "desc": "See your data clearly",
-        "examples": "Status trackers, maps, charts that update automatically",
+        "icon": "🧭",
+        "title": "AI Guidance",
+        "desc": "Navigate AI tools confidently — we help you use ChatGPT and similar tools safely, and evaluate which products are worth buying",
+        "color": RgbColor(205, 133, 63)
+    },
+    {
+        "icon": "🎓",
+        "title": "Training & Skills",
+        "desc": "Level up your team's data capabilities through workshops, office hours, and hands-on learning opportunities",
         "color": SKY
     },
     {
-        "icon": "🔗",
-        "title": "Connected\nData Systems",
-        "desc": "Bring scattered info together",
-        "examples": "Link spreadsheets, databases, and documents in one place",
+        "icon": "🔬",
+        "title": "External Partnerships",
+        "desc": "Connections to universities, national labs, and industry partners to bring cutting-edge solutions to our challenges",
         "color": TEAL
     },
     {
-        "icon": "📈",
-        "title": "Analysis &\nInsights",
-        "desc": "Find patterns and trends",
-        "examples": "What's working? What's slowing down? Where to focus?",
+        "icon": "🤝",
+        "title": "Cross-Company Collaboration",
+        "desc": "Working alongside data professionals in every department to share best practices and build tools everyone can use",
         "color": SAGE
     },
     {
-        "icon": "🔮",
-        "title": "Predictions &\nForecasts",
-        "desc": "See what's likely coming",
-        "examples": "Timeline estimates, risk flags, outcome probabilities",
+        "icon": "👥",
+        "title": "Communities of Practice",
+        "desc": "User groups and working sessions where people across the company can learn from each other and solve common challenges",
         "color": RgbColor(147, 112, 165)
-    },
-    {
-        "icon": "🤖",
-        "title": "AI-Powered\nTools",
-        "desc": "Smart automation",
-        "examples": "Document generation, Q&A assistants, intelligent workflows",
-        "color": RgbColor(205, 133, 63)
     }
 ]
 
-card_width = Inches(2.35)
-card_height = Inches(4.2)
-start_x = Inches(0.5)
-start_y = Inches(2.1)
+# Layout: 3 on top, 2 centered on bottom
+card_width = Inches(4.0)
+card_height = Inches(1.9)
 gap = Inches(0.2)
+top_y = Inches(2.0)
+bottom_y = Inches(4.1)
 
-for i, sol in enumerate(solution_types):
-    x = start_x + i * (card_width + gap)
+for i, item in enumerate(enablement):
+    if i < 3:
+        # Top row
+        x = Inches(0.45) + i * (card_width + gap)
+        y = top_y
+    else:
+        # Bottom row - centered
+        x = Inches(2.55) + (i - 3) * (card_width + gap)
+        y = bottom_y
 
     # Card background
-    card = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, start_y, card_width, card_height)
+    card = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, card_width, card_height)
     card.fill.solid()
     card.fill.fore_color.rgb = WHITE
-    card.line.color.rgb = sol["color"]
-    card.line.width = Pt(2)
+    card.line.color.rgb = item["color"]
+    card.line.width = Pt(1.5)
 
-    # Color bar at top
-    bar = slide5.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, start_y, card_width, Inches(0.15))
+    # Color accent bar on left
+    bar = slide5.shapes.add_shape(MSO_SHAPE.RECTANGLE, x, y, Inches(0.12), card_height)
     bar.fill.solid()
-    bar.fill.fore_color.rgb = sol["color"]
+    bar.fill.fore_color.rgb = item["color"]
     bar.line.fill.background()
 
-    # Icon
-    icon_bg = slide5.shapes.add_shape(MSO_SHAPE.OVAL, x + card_width/2 - Inches(0.4), start_y + Inches(0.35), Inches(0.8), Inches(0.8))
-    icon_bg.fill.solid()
-    icon_bg.fill.fore_color.rgb = sol["color"]
-    icon_bg.line.fill.background()
-
-    icon_txt = slide5.shapes.add_textbox(x + card_width/2 - Inches(0.35), start_y + Inches(0.45), Inches(0.7), Inches(0.6))
-    tf = icon_txt.text_frame
+    # Icon and title on same line
+    title_txt = slide5.shapes.add_textbox(x + Inches(0.25), y + Inches(0.15), card_width - Inches(0.4), Inches(0.5))
+    tf = title_txt.text_frame
     p = tf.paragraphs[0]
-    p.text = sol["icon"]
-    p.font.size = Pt(28)
-    p.alignment = PP_ALIGN.CENTER
+    p.text = f"{item['icon']}  {item['title']}"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = item["color"]
 
-    # Title
-    t = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(1.25), card_width - Inches(0.2), Inches(0.8))
-    tf = t.text_frame
+    # Description
+    desc_txt = slide5.shapes.add_textbox(x + Inches(0.25), y + Inches(0.6), card_width - Inches(0.4), Inches(1.2))
+    tf = desc_txt.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    p.text = sol["title"]
-    p.font.size = Pt(14)
-    p.font.bold = True
-    p.font.color.rgb = sol["color"]
-    p.alignment = PP_ALIGN.CENTER
-
-    # Short description
-    d = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(2.05), card_width - Inches(0.2), Inches(0.5))
-    tf = d.text_frame
-    tf.word_wrap = True
-    p = tf.paragraphs[0]
-    p.text = sol["desc"]
-    p.font.size = Pt(13)
-    p.font.bold = True
+    p.text = item["desc"]
+    p.font.size = Pt(12)
     p.font.color.rgb = SLATE
-    p.alignment = PP_ALIGN.CENTER
-
-    # Examples
-    e = slide5.shapes.add_textbox(x + Inches(0.1), start_y + Inches(2.55), card_width - Inches(0.2), Inches(1.4))
-    tf = e.text_frame
-    tf.word_wrap = True
-    p = tf.paragraphs[0]
-    p.text = sol["examples"]
-    p.font.size = Pt(11)
-    p.font.color.rgb = MED_GRAY
-    p.alignment = PP_ALIGN.CENTER
-
-    # Arrow between cards (except last)
-    if i < len(solution_types) - 1:
-        arrow = slide5.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW,
-            x + card_width + Inches(0.02), start_y + Inches(0.8),
-            Inches(0.16), Inches(0.25))
-        arrow.fill.solid()
-        arrow.fill.fore_color.rgb = RgbColor(200, 210, 220)
-        arrow.line.fill.background()
 
 # Bottom note
-note5 = slide5.shapes.add_textbox(Inches(0.5), Inches(6.5), Inches(12.3), Inches(0.5))
+note5 = slide5.shapes.add_textbox(Inches(0.5), Inches(6.2), Inches(12.3), Inches(0.5))
 tf = note5.text_frame
 p = tf.paragraphs[0]
-p.text = "Let's look at some real examples →"
-p.font.size = Pt(16)
-p.font.bold = True
-p.font.color.rgb = TEAL
+p.text = "These services are available to everyone — no project required"
+p.font.size = Pt(14)
+p.font.italic = True
+p.font.color.rgb = MED_GRAY
 p.alignment = PP_ALIGN.CENTER
 
 add_slide_footer(slide5)
